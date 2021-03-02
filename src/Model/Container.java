@@ -1,4 +1,4 @@
-package org.hbrs.se.ws20.uebung4.Model;
+package Model;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -7,7 +7,7 @@ public class Container {
 
     private PersistenceStrategy<Userstory> pSS;
     private static LinkedList<Userstory> list;
-    private static org.hbrs.se.ws20.uebung4.Model.Container instance =null;
+    private static Container instance =null;
     private static final Object lock = new Object();
 
 
@@ -16,10 +16,10 @@ public class Container {
     }
 
     //synchronized verhindert mehrere Clients die zugreifen
-    public static /*synchronized*/ org.hbrs.se.ws20.uebung4.Model.Container getInstance(){
+    public static /*synchronized*/ Container getInstance(){
         synchronized(lock) {
             if (instance == null) {
-                instance = new org.hbrs.se.ws20.uebung4.Model.Container();
+                instance = new Model.Container();
             }
         }
         return instance;
@@ -58,7 +58,7 @@ public class Container {
         LinkedList<Userstory> tmp = (LinkedList<Userstory>) pSS.load();
 
             for (Userstory u : tmp) {
-                org.hbrs.se.ws20.uebung4.Model.Container.getInstance().addUserStory(u);
+                Container.getInstance().addUserStory(u);
             }
     }
     public void loadForce() throws PersistenceException {

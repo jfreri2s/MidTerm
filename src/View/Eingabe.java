@@ -1,10 +1,10 @@
-package org.hbrs.se.ws20.uebung4.View;
+package View;
 
-import org.hbrs.se.ws20.uebung4.Model.ContainerException;
-import org.hbrs.se.ws20.uebung4.Model.PersistenceException;
-import org.hbrs.se.ws20.uebung4.Controller.Ausgabe;
-import org.hbrs.se.ws20.uebung4.Model.Container;
-import org.hbrs.se.ws20.uebung4.Model.Userstory;
+import Model.ContainerException;
+import Model.PersistenceException;
+import Controller.Ausgabe;
+import Model.Container;
+import Model.Userstory;
 
 import java.util.Scanner;
 

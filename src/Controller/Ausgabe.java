@@ -1,6 +1,6 @@
-package org.hbrs.se.ws20.uebung4.Controller;
+package Controller;
 
-import org.hbrs.se.ws20.uebung4.Model.Userstory;
+import Model.Userstory;
 
 import java.util.Comparator;
 import java.util.List;

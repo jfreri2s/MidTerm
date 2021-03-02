@@ -25,7 +25,7 @@
         <mxCell id="6JhPH0XHJd65RkIRGvUt-183" value="" style="shape=folder;fontStyle=1;spacingTop=10;tabWidth=50;tabHeight=20;tabPosition=left;html=1;" parent="1" vertex="1">
           <mxGeometry x="-340" y="754" width="700" height="400" as="geometry" />
         </mxCell>
-        <mxCell id="6JhPH0XHJd65RkIRGvUt-184" value="Model" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;" parent="1" vertex="1">
+        <mxCell id="6JhPH0XHJd65RkIRGvUt-184" value="src.Model" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;" parent="1" vertex="1">
           <mxGeometry x="-340" y="754" width="50" height="20" as="geometry" />
         </mxCell>
         <mxCell id="6JhPH0XHJd65RkIRGvUt-185" value="Container" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;" parent="1" vertex="1">
@@ -121,7 +121,7 @@
         <mxCell id="6JhPH0XHJd65RkIRGvUt-215" value="" style="shape=folder;fontStyle=1;spacingTop=10;tabWidth=70;tabHeight=20;tabPosition=left;html=1;" parent="1" vertex="1">
           <mxGeometry x="-840" y="940" width="200" height="150" as="geometry" />
         </mxCell>
-        <mxCell id="6JhPH0XHJd65RkIRGvUt-216" value="Controller" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;" parent="1" vertex="1">
+        <mxCell id="6JhPH0XHJd65RkIRGvUt-216" value="src.Controller" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;" parent="1" vertex="1">
           <mxGeometry x="-840" y="940" width="70" height="20" as="geometry" />
         </mxCell>
         <mxCell id="6JhPH0XHJd65RkIRGvUt-217" value="InputDialog" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;" parent="1" vertex="1">
