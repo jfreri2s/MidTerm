@@ -12,7 +12,7 @@ public class Main {
         eingabe.parseInput();
         // TODO: Was passiert nach der Eingabe des Risikos Beispielwerte oder Test-Cases wären gut.
 
-        System.out.println("Hello World!");
+        System.out.println("Something");
     }
 
 }
