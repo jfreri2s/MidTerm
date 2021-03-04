@@ -11,7 +11,7 @@ import java.util.Scanner;
 public class Eingabe {
     Ausgabe a = new Ausgabe();
     public void startEingabe() {
-        System.out.println("Prio-Tool V1.0 by Jan F.");
+        System.out.println("Prio Tool Hönighausen, Freriks");
         Scanner sc = new Scanner(System.in);
         Container c = Container.getInstance();
 
