@@ -11,7 +11,7 @@ public class Container {
     private static Container instance = null;
     private static final Object lock = new Object();
 
-
+    // Implementationg of the methods for the  existing Commands
     private Container(){
          list = new LinkedList<>();
     }
