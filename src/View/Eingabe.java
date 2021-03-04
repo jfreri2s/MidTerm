@@ -11,23 +11,23 @@ public class Eingabe {
         String strInput  = null;
         String[] strSplit  = null;
         HashMap<String, Command > commandHashMap = new HashMap<String, Command>();
-        commandHashMap.put("Actors", new ActorsCommand());
-        commandHashMap.put("Analyze", new AnalyzeCommand());
-        commandHashMap.put("Dump", new DumpCommand());
-        commandHashMap.put("Undo", new UndoCommand());
-        commandHashMap.put("Status", new StatusCommand());
-        commandHashMap.put("AddElement", new AddElementCommand());
-        commandHashMap.put("Enter", new EnterCommand());
-        commandHashMap.put("Store", new StoreCommand());
-        commandHashMap.put("Load", new LoadCommand());
-        commandHashMap.put("Exit", new ExitCommand());
-        commandHashMap.put("Help", new HelpCommand());
-        commandHashMap.put("SetStrategy", new SetStrategyCommand());
+        commandHashMap.put("actors", new ActorsCommand());
+        commandHashMap.put("analyze", new AnalyzeCommand());
+        commandHashMap.put("dump", new DumpCommand());
+        commandHashMap.put("undo", new UndoCommand());
+        commandHashMap.put("status", new StatusCommand());
+        commandHashMap.put("addElement", new AddElementCommand());
+        commandHashMap.put("enter", new EnterCommand());
+        commandHashMap.put("store", new StoreCommand());
+        commandHashMap.put("load", new LoadCommand());
+        commandHashMap.put("exit", new ExitCommand());
+        commandHashMap.put("help", new HelpCommand());
+        commandHashMap.put("setStrategy", new SetStrategyCommand());
 
         Scanner sc = new Scanner(System.in);
         while (true){
             System.out.print("> ");
-            strInput = sc.nextLine();
+            strInput = sc.nextLine().toLowerCase();
             strSplit = strInput.split(" ");
             List<String> myList = new ArrayList<>(Arrays.asList(strSplit));
             myList.remove(0);
