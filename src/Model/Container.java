@@ -7,7 +7,7 @@ public class Container {
 
     private PersistenceStrategy<Userstory> pSS;
     private static LinkedList<Userstory> list;
-    private static Container instance =null;
+    private static Container instance = null;
     private static final Object lock = new Object();
 
 
