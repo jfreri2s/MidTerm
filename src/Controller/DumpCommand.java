@@ -11,6 +11,7 @@ public class DumpCommand implements Command{
         for (String s : args) {
             System.out.println(s);
         }
+        //param == status
     }
 
     public void undo() {
