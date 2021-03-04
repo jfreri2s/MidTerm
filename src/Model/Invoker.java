@@ -11,6 +11,6 @@ public class Invoker {
     }
     public  void executeOperation(Command c){
         cs.add(c);
-        return c.execute();
+        c.execute();
     }
 }

@@ -29,7 +29,7 @@ public class Userstory implements Serializable {
     public void setPrio(int mehrwert, int strafe, int aufwand, int risiko) {
         double nenner = aufwand + risiko;
         if (nenner <= 0 || risiko < 0) {
-            throw new IllegalArgumentException("Ungültige Eingabe"); //TODO: sollte man hier nicht genauer differenzieren, welche Eingabe warum falsch ist?
+            throw new IllegalArgumentException("Ungültige Eingabe");
         }
 
         this.prio = (mehrwert + strafe) / nenner;
