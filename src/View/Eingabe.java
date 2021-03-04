@@ -4,13 +4,12 @@ import Controller.*;
 import Model.Invoker;
 
 
-import java.util.HashMap;
-import java.util.Scanner;
+import java.util.*;
 
-public class Parser {
-
+public class Eingabe {
     public void parseInput() {
         String strInput  = null;
+        String[] strSplit  = null;
         HashMap<String, Command > commandHashMap = new HashMap<String, Command>();
         commandHashMap.put("Actors", new ActorsCommand());
         commandHashMap.put("Analyze", new AnalyzeCommand());
@@ -23,15 +22,19 @@ public class Parser {
         commandHashMap.put("Load", new LoadCommand());
         commandHashMap.put("Exit", new ExitCommand());
         commandHashMap.put("Help", new HelpCommand());
-        commandHashMap.put("Help", new SetStrategyCommand());
+        commandHashMap.put("SetStrategy", new SetStrategyCommand());
 
         Scanner sc = new Scanner(System.in);
         while (true){
             System.out.print("> ");
             strInput = sc.nextLine();
-            Command command = commandHashMap.get(strInput);
+            strSplit = strInput.split(" ");
+            List<String> myList = new ArrayList<>(Arrays.asList(strSplit));
+            myList.remove(0);
+            // TODO: Command Fail
+            Command command = commandHashMap.get(strSplit[0]);
             Invoker inv = new Invoker(command);
-            inv.executeOperation(command);
+            inv.executeOperation(command,myList);
         }
     }
 }

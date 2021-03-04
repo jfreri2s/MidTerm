@@ -1,6 +1,8 @@
 package Model;
 
 import Controller.Command;
+
+import java.util.List;
 import java.util.Stack;
 
 public class Invoker {
@@ -9,8 +11,7 @@ public class Invoker {
     public Invoker(Command command){
         cm = command;
     }
-    public  void executeOperation(Command c){
-        cs.add(c);
-        return c.execute();
+    public void executeOperation(Command c, List<String>  a){
+        c.execute(a);
     }
 }
