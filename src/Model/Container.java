@@ -71,7 +71,7 @@ public class Container {
         return list;
     }
 
-    public void setStrategy(PersistenceStrategy<Userstory> pSS) {
+    public void setStrategy(Model.PersistenceStrategyStream pSS) {
         this.pSS = pSS;
     }
 }
