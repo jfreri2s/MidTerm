@@ -7,13 +7,14 @@ import java.util.List;
 public class Container {
 
     private PersistenceStrategy<Userstory> pSS;
-    private static LinkedList<Userstory> list;
+    private static LinkedList<Userstory> uSL;
+    private static LinkedList<Actor> aL;
     private static Container instance = null;
     private static final Object lock = new Object();
 
     // Implementationg of the methods for the  existing Commands
     private Container(){
-         list = new LinkedList<>();
+         uSL = new LinkedList<>();
     }
 
     //synchronized verhindert mehrere Clients die zugreifen
@@ -25,16 +26,34 @@ public class Container {
         }
         return instance;
     }
+    public void analyze(List<String> args){
+        // param details hints all
+        AnalyzeStrategy astrat = new AnalyzeConcrete(uSL,aL);
+        if(args.get(0).equals("-") && args.get(1).equals("all")){
+            // param ==  all, alle userstories müssen ausgegeben werden.
+
+        }
+        else {
+            if(args.get(1).equals("-") && args.get(2).equals("details")){
+                if(args.get(1).equals("-") && args.get(4).equals("hints")){
+                    //es werden zusätzlich zu den details weitere Hinweise angezeigt
+                }
+                else{
+                    //nur details werden angezeigt
+                }
+            }
+        }
+    }
 
     public void addUserStory (Userstory r ) throws ContainerException {
         if ( contains(r) == true ) {
             throw new ContainerException("ID bereits vorhanden!");
         }
-        list.add(r);
+        uSL.add(r);
 
     }
     private boolean contains(Userstory u) {
-        for ( Userstory a : list) {
+        for ( Userstory a : uSL) {
             if (a.getId().equals(u.getId())) {
                 return true;
             }
@@ -42,14 +61,14 @@ public class Container {
         return false;
     }
     public int size(){
-        return list.size();
+        return uSL.size();
     }
 
     public void store() throws PersistenceException {
         if(pSS == null){
             throw new PersistenceException(PersistenceException.ExceptionType.NoStrategyIsSet,"NoStrategyIsSet");
         }
-        pSS.save(list);
+        pSS.save(uSL);
     }
 
     public void loadMerge() throws PersistenceException, ContainerException {
@@ -66,10 +85,10 @@ public class Container {
         if(pSS == null){
             throw new PersistenceException(PersistenceException.ExceptionType.NoStrategyIsSet,"NoStrategyIsSet");
         }
-        list = (LinkedList<Userstory>) pSS.load();
+        uSL = (LinkedList<Userstory>) pSS.load();
     }
     public List<Userstory> getCurrentList(){
-        return list;
+        return uSL;
     }
 
     public void setStrategy(Model.PersistenceStrategyStream pSS) {
