@@ -19,7 +19,7 @@ public class AnalyzeConcrete implements AnalyzeStrategy{
 
     @Override
     public void analyze(int id, String hints, String details) {
-        String[] uST;
+        String[] uST = null;
         LinkedList<String> hs = new LinkedList<String>(); // list of hints for the user
         LinkedList<String> ds =  new LinkedList<String>();; // list of userstory details
         int quality = 100;
@@ -42,12 +42,15 @@ public class AnalyzeConcrete implements AnalyzeStrategy{
             //als möglicher hint "Beginnt nicht mit Als als erstes Wort";
 
         }
-        if(!aL.contains(new Actor(uST[1].toLowerCase()))){
+        /*
+        if(!aL.contains(uST[1].toLowerCase())){
+
             //wrong actor
             quality-=20;
             hs.add("Registrieren sie einen neuen Akteur!");
             ds.add("Akteur ('\"" + uST[1] + "\"') ist nicht bekannt (- 20% )");
         }
+        */
         if(! uST[2].toLowerCase().equals("möchte")){
             quality -=5;
             hs.add("Es wurde kein");
@@ -58,13 +61,13 @@ public class AnalyzeConcrete implements AnalyzeStrategy{
             if(uST[idx].equals("um") ){
                 if(idx < 6){
                     // too short or not sufficient information supplied
-                    quality -=0;
+                    quality -=5;
                     hs.add("");
                     ds.add("");
                 }
                 if(idx > 10){
                     // too long
-                    quality -=0;
+                    quality -=5;
                     hs.add("");
                     ds.add("");
                 }
@@ -93,7 +96,7 @@ public class AnalyzeConcrete implements AnalyzeStrategy{
             }
 
         }
-        System.out.println("Die User Story mit der ID "+ cur.getId()+" hat folgende Qualität: ");
+        System.out.println("Die User Story mit der ID "+ cur.getId()+" hat folgende Qualität: " + quality);
         //TODO what to do about the persistent storage of actors?
 
     }

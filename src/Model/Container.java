@@ -3,6 +3,7 @@ package Model;
 import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Scanner;
 
 public class Container {
 
@@ -15,6 +16,7 @@ public class Container {
     // Implementationg of the methods for the  existing Commands
     private Container(){
          uSL = new LinkedList<>();
+
     }
 
     //synchronized verhindert mehrere Clients die zugreifen
@@ -26,25 +28,61 @@ public class Container {
         }
         return instance;
     }
-    public void analyze(List<String> args){
-        // param details hints all
-        AnalyzeStrategy astrat = new AnalyzeConcrete(uSL,aL);
-        if(args.get(0).equals("-") && args.get(1).equals("all")){
-            // param ==  all, alle userstories müssen ausgegeben werden.
-
-        }
-        else {
-            if(args.get(1).equals("-") && args.get(2).equals("details")){
-                if(args.get(1).equals("-") && args.get(4).equals("hints")){
-                    //es werden zusätzlich zu den details weitere Hinweise angezeigt
-                }
-                else{
-                    //nur details werden angezeigt
-                }
+    public boolean checkDigit(String args){
+        boolean isNumeric =  true;
+        for (int i = 0; i < args.length(); i++) {
+            if (!Character.isDigit(args.charAt(i))) {
+                isNumeric = false;
             }
         }
+        return isNumeric;
     }
+    public void analyze(List<String> args){
 
+        AnalyzeStrategy astrat = new AnalyzeConcrete(uSL,aL);
+
+        if(checkDigit(args.get(0))){
+            astrat.analyze(Integer.parseInt(args.get(0)),null,null);
+        }
+        else{
+            // param details hints all
+            if(args.get(0).equals("-") && args.get(1).equals("all")){
+                // param ==  all, alle userstories müssen ausgegeben werden.
+
+            }
+            else {
+                if (args.get(1).equals("-") && args.get(2).equals("details")) {
+                    if (args.get(1).equals("-") && args.get(4).equals("hints")) {
+                        //es werden zusätzlich zu den details weitere Hinweise angezeigt
+                    } else {
+                        //nur details werden angezeigt
+                    }
+                }
+
+            }
+        }
+
+    }
+    public void enter() throws ContainerException {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Geben sie eine ID an");
+        int id = sc.nextInt();
+        sc.nextLine();
+        System.out.println("Geben sie einen Text an");
+        String text = sc.nextLine();
+        System.out.println("Geben sie Kriterien an");
+        String krit = sc.nextLine();
+        System.out.println("Geben sie einen mehrwert");
+        int mehrwert = sc.nextInt();
+        System.out.println("Geben sie einen strafe");
+        int strafe = sc.nextInt();
+        System.out.println("Geben sie einen aufwand");
+        int aufwand = sc.nextInt();
+        System.out.println("Geben sie einen risiko");
+        int risko = sc.nextInt();
+        Userstory bs = new Userstory(id, text, krit, mehrwert, strafe, aufwand, risko);
+        addUserStory(bs);
+    }
     public void addUserStory (Userstory r ) throws ContainerException {
         if ( contains(r) == true ) {
             throw new ContainerException("ID bereits vorhanden!");
