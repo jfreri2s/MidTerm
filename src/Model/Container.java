@@ -76,6 +76,7 @@ public class Container {
         this.pSS = pSS;
     }
 
+    //TODO: either implement a specialized dump method for status or one where the status will be queried
     public void dump(List<Userstory> liste){
         System.out.println("1)Prio 2)ID 3)Text 4) Kriterien 5)Mehrwert 6)Strafe 7)Aufwand 8) Risiko");
         liste.stream()

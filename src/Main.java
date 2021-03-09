@@ -10,7 +10,6 @@ public class Main {
         Eingabe eingabe = new Eingabe();
         c.setStrategy(new PersistenceStrategyStream<Userstory>());
         eingabe.parseInput();
-        // TODO: Was passiert nach der Eingabe des Risikos Beispielwerte oder Test-Cases wären gut.
 
         System.out.println("Hello World!");
     }

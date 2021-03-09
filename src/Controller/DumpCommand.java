@@ -8,10 +8,9 @@ public class DumpCommand implements Command{
     private Container c;
     @Override
     public void execute(List<String> args) {
-        for (String s : args) {
-            System.out.println(s);
+        if(args.get(0).equals("-") && args.get(1).equals("status")){
+            //TODO: call of the according container method
         }
-        //param == status
     }
 
     public void undo() {
