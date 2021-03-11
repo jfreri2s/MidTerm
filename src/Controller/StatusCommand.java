@@ -8,7 +8,14 @@ public class StatusCommand implements Command{
     private Container c = Container.getInstance();
     @Override
     public void execute(List<String> args) {
-        //TODO: call of the according status method in container
-        /*the parameters could be tested for done, progress or to do */
+        switch (args.get(1)){
+            case "done":c.status(Integer.parseInt(args.get(0)),"done");
+            break;
+            case "progress":c.status(Integer.parseInt(args.get(0)),"progress");
+            break;
+            case "todo": c.status(Integer.parseInt(args.get(0)),"todo");
+            break;
+        }
+
     }
 }
