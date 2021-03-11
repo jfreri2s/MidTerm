@@ -11,6 +11,7 @@ public class Userstory implements Serializable {
     private int strafe;
     private int aufwand;
     private int risiko;
+    private String status;
 
     public Userstory(int id, String text, String kriterien, int mehrwert, int strafe, int aufwand, int risiko){
         this.id = id;
@@ -20,6 +21,7 @@ public class Userstory implements Serializable {
         this.strafe = strafe;
         this.aufwand = aufwand;
         this.risiko = risiko;
+        status = "todo";
         setPrio(mehrwert, strafe, aufwand, risiko);
     }
 
@@ -76,7 +78,10 @@ public class Userstory implements Serializable {
     public void setStrafe(int strafe) {
         this.strafe = strafe;
     }
+    public String getStatus(){return status;}
+    public void setStatus(String status){this.status = status;}
     public String toString(){
         return "" + text + " " + kriterien + " Prio: " + getPrio();
     }
+
 }
