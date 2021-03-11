@@ -1,6 +1,7 @@
 package Model;
 
 import java.util.LinkedList;
+import java.util.Locale;
 
 public class AnalyzeConcrete implements AnalyzeStrategy{
     private LinkedList<Userstory> uSL;
@@ -13,12 +14,21 @@ public class AnalyzeConcrete implements AnalyzeStrategy{
         this.aL = aL;
         hs = new LinkedList<String>(); // list of hints for the user
         ds =  new LinkedList<String>();; // list of userstory details
-        qs= new LinkedList<>(); // list of quality
+        qs = new LinkedList<>(); // list of quality
     }
 
     @Override
-    public void analyzeAll() {
-
+    public void analyzeAll(String hints, String details) {
+        int sum = 0;
+        double avgQs = 0;
+        for(Userstory us : uSL){
+            processAnalysis(us.getId(),"","");
+        }
+        for(Integer i : qs){
+            sum += i;
+        }
+        avgQs = (double) sum/qs.size();
+        System.out.println("Ihre " + qs.size() + "Userstories haben durchschnittlich folgende Qualität: "+ avgQs); //TODO rating of the quality of the userstories wiht grade in words
     }
     public void addtoLists(int quality, String hints, String details){
         qs.add(quality);
@@ -27,6 +37,13 @@ public class AnalyzeConcrete implements AnalyzeStrategy{
     }
     @Override
     public void analyze(int id, String hints, String details) {
+        processAnalysis(id,hints,details);
+        System.out.println("Die User Story mit der ID "+ id+" hat folgende Qualität: " + qs.get(0));
+        //TODO rating of the quality of the userstories wiht grade in words
+        //TODO what to do about the persistent storage of actors?
+
+    }
+    public void processAnalysis(int id, String hints, String details){
         String[] uST = null;
         Userstory cur = null;
         for(Userstory us : uSL){
@@ -46,10 +63,12 @@ public class AnalyzeConcrete implements AnalyzeStrategy{
             //als möglicher hint "Beginnt nicht mit Als als erstes Wort";
 
         }
-
-        if(!aL.contains(uST[1].toLowerCase())){
-            //wrong actor
-            addtoLists(-5,"Registrieren sie einen neuen Akteur!","Akteur ('\"" + uST[1] + "\"') ist nicht bekannt (- 20% )");
+        for(Actor a : aL){
+            if(!a.getName().toLowerCase().equals(uST[1].toLowerCase())){
+                //wrong actor
+                addtoLists(-5,"Registrieren sie einen neuen Akteur!","Akteur ('\"" + uST[1] + "\"') ist nicht bekannt (- 20% )");
+                break;
+            }
         }
 
         if(! uST[2].toLowerCase().equals("möchte")){
@@ -83,10 +102,6 @@ public class AnalyzeConcrete implements AnalyzeStrategy{
                     addtoLists(-5,"Der Mehrwert sollte nicht länger als zehn Wörter sein!","Ihr Mehrwert ist zu ausführlich beschrieben  (- 5%)");
                 }
             }
-
         }
-        System.out.println("Die User Story mit der ID "+ cur.getId()+" hat folgende Qualität: " + qs.get(0));
-        //TODO what to do about the persistent storage of actors?
-
     }
 }

@@ -4,6 +4,7 @@ import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.function.Predicate;
 
 public class Container {
 
@@ -137,10 +138,20 @@ public class Container {
     }
 
     //TODO: either implement a specialized dump method for status or one where the status will be queried
-    public void dump(){
+    public void dump(List<String> args,List<Userstory> liste){
         System.out.println("1)Prio 2)ID 3)Text 4) Kriterien 5)Mehrwert 6)Strafe 7)Aufwand 8) Risiko");
+        Predicate<Userstory> hasAufwand = userstory ->userstory.getAufwand()>4;
+        Predicate<Userstory> hasStatus = userstory -> userstory.getStatus().equals(args.get(2));
+        Predicate<Userstory> p;
+        if(args.contains("status")){
+            p = hasStatus;
+        }
+        else{
+            p = hasAufwand;
+        }
         uSL.stream()
                 .sorted(Comparator.comparing(Userstory::getPrio))
+                .filter(p)
                 .forEach(element -> System.out.println(" 1)" + element.getPrio()+" 2)"+element.getId()+" 3)"+element.getText()+" 4)"+element.getKriterien()+
                         " 5)"+element.getMehrwert() + " 6)" + element.getStrafe()+ " 7)" +element.getAufwand()+ " 8)" +element.getRisk() + element.getStatus()));
     }
@@ -152,5 +163,32 @@ public class Container {
             }
         }
         return isNumeric;
+    }
+
+    public void actors() {
+        for(Actor a : aL){
+            System.out.println(a.getName());
+        }
+    }
+    public void exit(){
+        System.exit(0);
+    }
+
+    public void addElement(String name) {
+        String res = "";
+        if(name.equals(" ") || name.length() == 0){
+            //throw new InputMismatchException();
+        }
+        for(int idx = 0; idx < aL.size(); idx++){
+            if(!(aL.get(idx).equals(name))){
+                aL.add(new Actor(name));
+                res = "Der Akteur Student wurde im System registriert!";
+                break;
+            }
+            else{
+                res = "Der Akteur wurde bereits im System registriert!";
+            }
+        }
+        System.out.println(res);
     }
 }
