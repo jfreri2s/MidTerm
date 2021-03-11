@@ -28,15 +28,7 @@ public class Container {
         }
         return instance;
     }
-    public boolean checkDigit(String args){
-        boolean isNumeric =  true;
-        for (int i = 0; i < args.length(); i++) {
-            if (!Character.isDigit(args.charAt(i))) {
-                isNumeric = false;
-            }
-        }
-        return isNumeric;
-    }
+
     public void analyze(List<String> args){
 
         AnalyzeStrategy astrat = new AnalyzeConcrete(uSL,aL);
@@ -72,23 +64,34 @@ public class Container {
         String text = sc.nextLine();
         System.out.println("Geben sie Kriterien an");
         String krit = sc.nextLine();
-        System.out.println("Geben sie einen mehrwert");
+        System.out.println("Geben sie einen Mehrwert");
         int mehrwert = sc.nextInt();
-        System.out.println("Geben sie einen strafe");
+        System.out.println("Geben sie einen Strafe");
         int strafe = sc.nextInt();
-        System.out.println("Geben sie einen aufwand");
+        System.out.println("Geben sie einen Aufwand");
         int aufwand = sc.nextInt();
-        System.out.println("Geben sie einen risiko");
+        System.out.println("Geben sie einen Risiko");
         int risko = sc.nextInt();
         Userstory bs = new Userstory(id, text, krit, mehrwert, strafe, aufwand, risko);
         addUserStory(bs);
     }
     public void addUserStory (Userstory r ) throws ContainerException {
-        if ( contains(r) == true ) {
+        if (contains(r)) {
             throw new ContainerException("ID bereits vorhanden!");
         }
         uSL.add(r);
 
+    }
+    public void help(){
+        System.out.println("Die möglichen Befehle sind : actors addElement analyze dump undo status enter store load exit setStrategy help");
+    }
+    public void status(int id, String s){
+        for ( Userstory a : uSL) {
+            if (a.getId().equals(id)) {
+                a.setStatus(s);
+            }
+        }
+        System.out.println("Die User Story mit der ID " + id + " wurde auf den Status " + s + " gesetzt");
     }
     private boolean contains(Userstory u) {
         for ( Userstory a : uSL) {
@@ -134,12 +137,20 @@ public class Container {
     }
 
     //TODO: either implement a specialized dump method for status or one where the status will be queried
-    public void dump(List<Userstory> liste){
+    public void dump(){
         System.out.println("1)Prio 2)ID 3)Text 4) Kriterien 5)Mehrwert 6)Strafe 7)Aufwand 8) Risiko");
-        liste.stream()
+        uSL.stream()
                 .sorted(Comparator.comparing(Userstory::getPrio))
-                .filter(element -> element.getAufwand()>4)
                 .forEach(element -> System.out.println(" 1)" + element.getPrio()+" 2)"+element.getId()+" 3)"+element.getText()+" 4)"+element.getKriterien()+
-                        " 5)"+element.getMehrwert() + " 6)" + element.getStrafe()+ " 7)" +element.getAufwand()+ " 8)" +element.getRisk() ));
+                        " 5)"+element.getMehrwert() + " 6)" + element.getStrafe()+ " 7)" +element.getAufwand()+ " 8)" +element.getRisk() + element.getStatus()));
+    }
+    public boolean checkDigit(String args){
+        boolean isNumeric =  true;
+        for (int i = 0; i < args.length(); i++) {
+            if (!Character.isDigit(args.charAt(i))) {
+                isNumeric = false;
+            }
+        }
+        return isNumeric;
     }
 }
