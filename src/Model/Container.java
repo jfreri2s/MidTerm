@@ -35,45 +35,54 @@ public class Container {
 
         AnalyzeStrategy astrat = new AnalyzeConcrete(uSL,aL);
 
-        if(checkDigit(args.get(0))){
-            astrat.analyze(Integer.parseInt(args.get(0)),null,null);
-        }
-        else{
-            // param details hints all
-            if(args.get(0).equals("-") && args.get(1).equals("all")){
-                // param ==  all, alle userstories müssen ausgegeben werden.
 
-            }
-            else {
+            // param details hints all
+        if(!checkDigit(args.get(0))){
+                    if(args.get(0).equals("-") && args.get(1).equals("all")){
+                        // param ==  all, alle userstories müssen ausgegeben werden.
+                        if(args.get(2).equals("-") && args.get(3).equals("details")){
+                            if (args.get(4).equals("-") && args.get(5).equals("hints")) {
+                                astrat.analyzeAll(args.get(5),args.get(3));
+                            }
+                            else{
+                                astrat.analyzeAll("",args.get(3));
+                            }
+                        }
+                        astrat.analyzeAll("","");
+                    }
+        }
+        else {
+            if(args.size() > 2){
                 if (args.get(1).equals("-") && args.get(2).equals("details")) {
-                    if (args.get(1).equals("-") && args.get(4).equals("hints")) {
+                    if (args.get(3).equals("-") && args.get(4).equals("hints")) {
                         //es werden zusätzlich zu den details weitere Hinweise angezeigt
+                        astrat.analyze(Integer.parseInt(args.get(0)),args.get(4),args.get(2));
                     } else {
-                        //nur details werden angezeigt
+                        astrat.analyze(Integer.parseInt(args.get(0)),"",args.get(2));
                     }
                 }
-
+            }
+            astrat.analyze(Integer.parseInt(args.get(0)),"","");
             }
         }
+        //TODO: throw an error if nothing of the above applies
 
-    }
     public void enter() throws ContainerException {
         Scanner sc = new Scanner(System.in);
         System.out.println("Geben sie eine ID an");
-        int id = sc.nextInt();
-        sc.nextLine();
+        int id = Integer.parseInt(sc.nextLine().trim());
         System.out.println("Geben sie einen Text an");
         String text = sc.nextLine();
         System.out.println("Geben sie Kriterien an");
         String krit = sc.nextLine();
-        System.out.println("Geben sie einen Mehrwert");
-        int mehrwert = sc.nextInt();
-        System.out.println("Geben sie einen Strafe");
-        int strafe = sc.nextInt();
-        System.out.println("Geben sie einen Aufwand");
-        int aufwand = sc.nextInt();
-        System.out.println("Geben sie einen Risiko");
-        int risko = sc.nextInt();
+        System.out.println("Geben sie einen Mehrwert an");
+        int mehrwert = Integer.parseInt(sc.nextLine().trim());;
+        System.out.println("Geben sie eine Strafe an");
+        int strafe = Integer.parseInt(sc.nextLine().trim());;
+        System.out.println("Geben sie einen Aufwand an");
+        int aufwand = Integer.parseInt(sc.nextLine().trim());;
+        System.out.println("Geben sie ein Risiko an");
+        int risko = Integer.parseInt(sc.nextLine().trim());;
         Userstory bs = new Userstory(id, text, krit, mehrwert, strafe, aufwand, risko);
         addUserStory(bs);
     }
@@ -167,7 +176,7 @@ public class Container {
     }
 
     public void actors() {
-        if(aL==null){
+        if(aL.isEmpty()){
             System.out.println("Es existieren keine Akteuer, die ausgegeben werden könnten");
             return;
         }
@@ -192,7 +201,7 @@ public class Container {
             }
         }
         aL.add(new Actor(name));
-        res = "Der Akteur Student wurde im System registriert!";
+        res = "Der Akteur "+ name +" wurde im System registriert!";
         System.out.println(res);
     }
 }

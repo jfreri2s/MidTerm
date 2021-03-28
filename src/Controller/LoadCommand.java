@@ -14,10 +14,10 @@ public class LoadCommand implements Command {
         //TODO: call of the according load method in container, depending on the parameters
         //not sure whether there should be this dissection of this command?
         try {
-            if (args.get(0).equals("-") && args.get(0).equals("force")) {
+            if (args.get(0).equals("-") && args.get(1).equals("force")) {
                 c.loadForce();
             }
-            if (args.get(0).equals("-") && args.get(0).equals("merge")) {
+            if (args.get(0).equals("-") && args.get(1).equals("merge")) {
                 c.loadMerge();
             }
         } catch (ContainerException e) {

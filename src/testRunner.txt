@@ -1,0 +1,19 @@
+enter
+1
+Als Student möchte ich meine Zeugnisse hochladen können, um bessere Informationen über mich bereistellen zu können.
+Das Hochladen soll in höchstens 30 Sekunden erfolgen.
+5
+4
+4
+3
+
+enter
+2
+Als Unternehmer möchte ich Stellenanzeigen hochladen können, um bessere Informationen über Stellen anbieten  zu können.
+Das Hochladen soll in höchstens 30 Sekunden erfolgen.
+5
+4
+4
+3
+
+analyze 1 - details - hints
