@@ -13,7 +13,7 @@ public class AnalyzeConcrete implements AnalyzeStrategy{
         this.uSL = uSL;
         this.aL = aL;
         hs = new LinkedList<String>(); // list of hints for the user
-        ds =  new LinkedList<String>();; // list of userstory details
+        ds = new LinkedList<String>();; // list of userstory details
         qs = new LinkedList<>(); // list of quality
     }
 
@@ -38,7 +38,11 @@ public class AnalyzeConcrete implements AnalyzeStrategy{
     @Override
     public void analyze(int id, String hints, String details) {
         processAnalysis(id,hints,details);
-        System.out.println("Die User Story mit der ID "+ id+" hat folgende Qualität: " + qs.get(0));
+        int sum = 0;
+        for(Integer i : qs){
+            sum += i;
+        }
+        System.out.println("Die User Story mit der ID "+ id+" hat folgende Qualität: " + (100+sum));
         //TODO rating of the quality of the userstories wiht grade in words
         //TODO what to do about the persistent storage of actors?
 
@@ -51,6 +55,8 @@ public class AnalyzeConcrete implements AnalyzeStrategy{
                 cur = us;
             }
         }
+        //qs.add(100);
+
         if(cur == null){
             //throw new Exception("Die Userstory mit der ID " + cur.getID() + " ist nicht vorhanden!");
             //TODO: Write more specific exceptiontype
@@ -62,10 +68,13 @@ public class AnalyzeConcrete implements AnalyzeStrategy{
         if(!uST[0].toLowerCase().equals("als")){
             //als möglicher hint "Beginnt nicht mit Als als erstes Wort";
 
-        }
+        }//TODO if no actors are registered there must be a notification!
         for(Actor a : aL){
             if(!a.getName().toLowerCase().equals(uST[1].toLowerCase())){
                 //wrong actor
+                //TODO addtoLists is not appropriate because a base quality must be set and then decreased
+                //currently several qualities are added to a quality list
+                //either sum the list up and add it to 100 or only change the preset 100 with the decreased value.
                 addtoLists(-5,"Registrieren sie einen neuen Akteur!","Akteur ('\"" + uST[1] + "\"') ist nicht bekannt (- 20% )");
                 break;
             }
@@ -104,4 +113,24 @@ public class AnalyzeConcrete implements AnalyzeStrategy{
             }
         }
     }
-}
+}/*
+> enter
+        Geben sie eine ID an
+        1
+        Geben sie einen Text an
+        Als Student möchte ich meine Zeugnisse hochladen können, um bessere Informationen über mich bereistellen zu können.
+        Geben sie Kriterien an
+        Das Hochladen soll in höchstens 30 Sekunden erfolgen.
+        Geben sie einen Mehrwert
+        5
+        Geben sie einen Strafe
+        4
+        Geben sie einen Aufwand
+        4
+        Geben sie einen Risiko
+        3
+        > help
+        Die möglichen Befehle sind : actors addElement analyze dump undo status enter store load exit setStrategy help
+        > analyze 1
+        Die User Story mit der ID 1 hat folgende Qualität: 100-60
+        > exit*/

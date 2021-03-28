@@ -9,7 +9,7 @@ public class AddElementCommand implements Command{
     @Override
     public void execute(List<String> args) {
         // param == actor
-        c.addElement(args.get(1));
+        c.addElement(args.get(0));
 
     }
 }

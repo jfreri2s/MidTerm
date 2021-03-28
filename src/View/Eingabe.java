@@ -27,12 +27,16 @@ public class Eingabe {
         Scanner sc = new Scanner(System.in);
         while (true){
             System.out.print("> ");
-            strInput = sc.nextLine().toLowerCase();
+            strInput = sc.nextLine();
             strSplit = strInput.split(" ");
             List<String> myList = new ArrayList<>(Arrays.asList(strSplit));
             myList.remove(0);
             // TODO: Command Fail
             Command command = commandHashMap.get(strSplit[0]);
+            if(command == null){
+                System.out.println("Command unavailable!");
+                continue;
+            }
             Invoker inv = new Invoker(command);
             inv.executeOperation(command,myList);
         }
