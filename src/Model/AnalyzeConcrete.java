@@ -27,7 +27,7 @@ public class AnalyzeConcrete implements AnalyzeStrategy{
             sum += i;
         }
         avgQs = (double) sum/qs.size();
-        System.out.println("Ihre " + qs.size() + "Userstories haben durchschnittlich folgende Qualität: "+ avgQs); //TODO rating of the quality of the userstories wiht grade in words
+        System.out.println("Ihre " + qs.size() + " Userstories haben durchschnittlich folgende Qualität: "+ avgQs); //TODO rating of the quality of the userstories wiht grade in words
     }
     public void addtoLists(int quality, String hints, String details){
         qs.add(quality);
