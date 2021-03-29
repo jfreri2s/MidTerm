@@ -38,7 +38,7 @@ public class Container {
 
             // param details hints all
         if(!checkDigit(args.get(0))){
-                    if(!args.get(0).equals("-") && args.get(1).equals("all")){
+                    if(args.get(0).equals("-") && args.get(1).equals("all")){
                         // param ==  all, alle userstories müssen ausgegeben werden.
                         if(args.get(2).equals("-") && args.get(3).equals("details")){
                             if (args.get(4).equals("-") && args.get(5).equals("hints")) {
@@ -50,7 +50,10 @@ public class Container {
                         }
 
                     }
-            astrat.analyzeAll("","");
+                    else{
+                        astrat.analyzeAll("","");
+                    }
+
         }
         else {
             if(args.size() > 2){
