@@ -31,7 +31,6 @@ public class Eingabe {
             strSplit = strInput.split(" ");
             List<String> myList = new ArrayList<>(Arrays.asList(strSplit));
             myList.remove(0);
-            // TODO: Command Fail
             Command command = commandHashMap.get(strSplit[0]);
             if(command == null){
                 System.out.println("Command unavailable!");

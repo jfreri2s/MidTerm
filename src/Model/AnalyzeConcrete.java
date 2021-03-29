@@ -26,9 +26,51 @@ public class AnalyzeConcrete implements AnalyzeStrategy{
         for(Integer i : qs){
             sum += i;
         }
-        avgQs = (double) sum/qs.size();
-        System.out.println("Ihre " + uSL.size() + "Userstories haben durchschnittlich folgende Qualität: "+ avgQs); //TODO rating of the quality of the userstories wiht grade in words
+        if(uSL.size() == 1){
+            String g = grade(sum);
+            String ans = "Ihre Userstory hat durchschnittlich folgende Qualität: \n"+ (100+sum) + "% (" + g + ")\n";
+            ausgabe(hints, details, ans);
+        } else {
+            avgQs = (double) sum/qs.size();
+            String g = grade((int) avgQs);
+            String ans = "Ihre " + uSL.size() + " Userstories haben durchschnittlich folgende Qualität: \n"+ avgQs + "% (" + g + ")\n";
+            ausgabe(hints, details, ans);
+        }
     }
+    private String grade(int sum){
+        String ans = "";
+
+        if(sum>= 90){
+            ans = "Sehr gut";
+        }
+        if(sum>= 75){
+            ans = "Gut";
+        }
+        if(sum>= 60){
+            ans = "Befriedigend";
+        }
+        if(sum>= 50){
+            ans = "Ausreichend";
+        }
+        if(sum<= 50){
+            ans = "Ungenügend";
+        }
+        return ans;
+    }
+    private void ausgabe(String hints, String details, String ans) {
+        if(details != null && details.equals("details") ){
+            ans+= "\nDetails: \n";
+            for(String s: ds)
+                ans+=s + "\n";
+        }
+        if( hints != null && hints.equals("hints") ){
+            ans+="\nHints: \n";
+            for(String s: hs)
+                ans+=s + "\n";
+        }
+        System.out.println(ans);
+    }
+
     public void addtoLists(int quality, String hints, String details){
         qs.add(quality);
         hs.add(hints);
@@ -41,22 +83,10 @@ public class AnalyzeConcrete implements AnalyzeStrategy{
         for(Integer i : qs){
             sum += i;
         }
-
-        String ans = "Die User Story mit der ID "+ id+" hat folgende Qualität: \n" + (100+sum)+ "%\n";
-        if(details != null && details.equals("details") ){
-            ans+= "\nDetails: \n";
-            for(String s: ds)
-                ans+=s + "\n";
-        }
-        if( hints != null && hints.equals("hints") ){
-            ans+="\nHints: \n";
-            for(String s: hs)
-                ans+=s + "\n";
-        }
-        System.out.println(ans);
-        //TODO rating of the quality of the userstories wiht grade in words
+        String g = grade(sum);
+        String ans = "Die User Story mit der ID "+ id+" hat folgende Qualität: \n" + (100+sum)+ "% (" + g + ")\n";
+        ausgabe(hints, details, ans);
         //TODO what to do about the persistent storage of actors?
-
     }
     public void processAnalysis(int id, String hints, String details){
         String[] uST = null;
@@ -66,11 +96,9 @@ public class AnalyzeConcrete implements AnalyzeStrategy{
                 cur = us;
             }
         }
-        //qs.add(100);
-
         if(cur == null){
-            //throw new Exception("Die Userstory mit der ID " + cur.getID() + " ist nicht vorhanden!");
-            //TODO: Write more specific exceptiontype
+            //throw new AnalyzeException("Die Userstory mit der ID " + cur.getID() + " ist nicht vorhanden!");
+
         }
         uST = cur.getText().split(" ");
         if(cur.getText().length() == 0){
@@ -78,14 +106,12 @@ public class AnalyzeConcrete implements AnalyzeStrategy{
         }
         //TODO if no actors are registered there must be a notification!
         if(aL.isEmpty()){
-            addtoLists(-20,"Registrieren sie einen neuen Akteur!","Akteur ('\"" + uST[1] + "\"') ist nicht bekannt (- 20% )");
+            //System.out.println("Es sind keine Akteure registriert");
+            addtoLists(-20,"Registrieren sie einen neuen Akteur!","Akteur ('" + uST[1] + "') ist nicht bekannt (- 20%)");
             for(Actor a : aL){
                 if(!a.getName().toLowerCase().equals(uST[1].toLowerCase())){
                     //wrong actor
-                    //TODO addtoLists is not appropriate because a base quality must be set and then decreased
-                    //currently several qualities are added to a quality list
-                    //either sum the list up and add it to 100 or only change the preset 100 with the decreased value.
-                    addtoLists(-20,"Registrieren sie einen neuen Akteur!","Akteur ('\"" + uST[1] + "\"') ist nicht bekannt (- 20% )");
+                    addtoLists(-20,"Registrieren sie einen neuen Akteur!","Akteur ('" + uST[1] + "') ist nicht bekannt (- 20%)");
                     break;
                 }
             }

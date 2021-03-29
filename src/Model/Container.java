@@ -31,44 +31,42 @@ public class Container {
         return instance;
     }
 
-    public void analyze(List<String> args){
-
-        AnalyzeStrategy astrat = new AnalyzeConcrete(uSL,aL);
-
-
-            // param details hints all
-        if(!checkDigit(args.get(0))){
-                    if(args.get(0).equals("-") && args.get(1).equals("all")){
-                        // param ==  all, alle userstories müssen ausgegeben werden.
-                        if(args.get(2).equals("-") && args.get(3).equals("details")){
+    public void analyze(List<String> args) {
+        AnalyzeStrategy astrat = new AnalyzeConcrete(uSL, aL);
+        if (!checkDigit(args.get(0))) {
+            if (args.get(0).equals("-") && args.get(1).equals("all")) {
+                if (args.size() > 2) {
+                    // param ==  all, alle userstories müssen ausgegeben werden.
+                    if (args.get(2).equals("-") && args.get(3).equals("details")) {
+                        if (args.size() > 4) {
                             if (args.get(4).equals("-") && args.get(5).equals("hints")) {
-                                astrat.analyzeAll(args.get(5),args.get(3));
+                                astrat.analyzeAll(args.get(5), args.get(3));
                             }
-                            else{
-                                astrat.analyzeAll("",args.get(3));
-                            }
+                        } else {
+                            astrat.analyzeAll("", args.get(3));
                         }
-
                     }
-                    else{
-                        astrat.analyzeAll("","");
-                    }
-
-        }
-        else {
-            if(args.size() > 2){
-                if (args.get(1).equals("-") && args.get(2).equals("details")) {
-                    if (args.get(3).equals("-") && args.get(4).equals("hints")) {
-                        //es werden zusätzlich zu den details weitere Hinweise angezeigt
-                        astrat.analyze(Integer.parseInt(args.get(0)),args.get(4),args.get(2));
-                    } else {
-                        astrat.analyze(Integer.parseInt(args.get(0)),"",args.get(2));
-                    }
+                } else {
+                    astrat.analyzeAll("", "");
                 }
             }
-            astrat.analyze(Integer.parseInt(args.get(0)),"","");
+        } else {
+            if (args.size() > 2) {
+                if (args.get(1).equals("-") && args.get(2).equals("details")) {
+                    if (args.size() > 4) {
+                        if (args.get(3).equals("-") && args.get(4).equals("hints")) {
+                            //es werden zusätzlich zu den details weitere Hinweise angezeigt
+                            astrat.analyze(Integer.parseInt(args.get(0)), args.get(4), args.get(2));
+                        }
+                    } else {
+                        astrat.analyze(Integer.parseInt(args.get(0)), "", args.get(2));
+                    }
+                }
+            } else {
+                astrat.analyze(Integer.parseInt(args.get(0)), "", "");
             }
         }
+    }
         //TODO: throw an error if nothing of the above applies
 
     public void enter() throws ContainerException {
@@ -151,7 +149,6 @@ public class Container {
         this.pSS = pSS;
     }
 
-    //TODO: either implement a specialized dump method for status or one where the status will be queried
     public void dump(List<String> args){
         System.out.println("1)Prio 2)ID 3)Text 4) Kriterien 5)Mehrwert 6)Strafe 7)Aufwand 8) Risiko");
         Predicate<Userstory> hasAufwand = userstory -> userstory.getAufwand()>4;
