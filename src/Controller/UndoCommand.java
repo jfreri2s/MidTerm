@@ -9,5 +9,6 @@ public class UndoCommand implements Command{
     @Override
     public void execute(List<String> args) {
         //TODO: call of the according load method in container, depending on the parameters
+        c.undo(args);
     }
 }

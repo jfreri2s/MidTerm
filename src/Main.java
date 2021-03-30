@@ -1,6 +1,4 @@
-import Model.Container;
-import Model.PersistenceStrategyStream;
-import Model.Userstory;
+import Model.*;
 import View.Eingabe;
 
 public class Main {
@@ -9,7 +7,15 @@ public class Main {
         Container c = Container.getInstance();
         Eingabe eingabe = new Eingabe();
         c.setStrategy(new PersistenceStrategyStream<Userstory>());
-        eingabe.parseInput();
+        try {
+            eingabe.parseInput();
+        } catch (AnalyzeException e) {
+            System.out.println(e.getMessage());
+        } catch (ContainerException e) {
+            e.printStackTrace();
+        } catch (PersistenceException e) {
+            System.out.println(e.getMessage());
+        }
 
     }
 

@@ -5,9 +5,9 @@ import java.util.LinkedList;
 public class AnalyzeConcrete implements AnalyzeStrategy{
     private LinkedList<Userstory> uSL;
     private LinkedList<Actor> aL;
-    LinkedList<String> hs = new LinkedList<String>(); // list of hints for the user
-    LinkedList<String> ds =  new LinkedList<String>();; // list of userstory details
-    LinkedList<Integer> qs= new LinkedList<>(); // list of quality
+    LinkedList<String> hs; // list of hints for the user
+    LinkedList<String> ds;; // list of userstory details
+    LinkedList<Integer> qs; // list of quality
     public AnalyzeConcrete(LinkedList<Userstory> uSL,LinkedList<Actor> aL) {
         this.uSL = uSL;
         this.aL = aL;
@@ -17,7 +17,7 @@ public class AnalyzeConcrete implements AnalyzeStrategy{
     }
 
     @Override
-    public void analyzeAll(String hints, String details) {
+    public void analyzeAll(String hints, String details) throws AnalyzeException {
         int sum = 0;
         double avgQs = 0;
         for(Userstory us : uSL){
@@ -77,7 +77,7 @@ public class AnalyzeConcrete implements AnalyzeStrategy{
         ds.add(details);
     }
     @Override
-    public void analyze(int id, String hints, String details) {
+    public void analyze(int id, String hints, String details) throws AnalyzeException {
         processAnalysis(id,hints,details);
         int sum = 0;
         for(Integer i : qs){
@@ -88,7 +88,7 @@ public class AnalyzeConcrete implements AnalyzeStrategy{
         ausgabe(hints, details, ans);
         //TODO what to do about the persistent storage of actors?
     }
-    public void processAnalysis(int id, String hints, String details){
+    public void processAnalysis(int id, String hints, String details) throws AnalyzeException {
         String[] uST = null;
         Userstory cur = null;
         for(Userstory us : uSL){
@@ -97,16 +97,16 @@ public class AnalyzeConcrete implements AnalyzeStrategy{
             }
         }
         if(cur == null){
-            //throw new AnalyzeException("Die Userstory mit der ID " + cur.getID() + " ist nicht vorhanden!");
+            throw new AnalyzeException("Die Userstory mit der ID " + id + " ist nicht vorhanden!");
 
         }
         uST = cur.getText().split(" ");
         if(cur.getText().length() == 0){
-            //throw new Exception("Userstory hat keinen Inhalt")
+            throw new AnalyzeException("Userstory hat keinen Inhalt");
         }
         //TODO if no actors are registered there must be a notification!
         if(aL.isEmpty()){
-            //System.out.println("Es sind keine Akteure registriert");
+            System.out.println("Es sind keine Akteure registriert\n");
             addtoLists(-20,"Registrieren sie einen neuen Akteur!","Akteur ('" + uST[1] + "') ist nicht bekannt (- 20%)");
             for(Actor a : aL){
                 if(!a.getName().toLowerCase().equals(uST[1].toLowerCase())){

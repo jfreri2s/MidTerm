@@ -11,7 +11,8 @@ public class Invoker {
     public Invoker(Command command){
         cm = command;
     }
-    public void executeOperation(Command c, List<String>  a){
-        c.execute(a);
+    public void executeOperation(Command c, List<String>  args) throws AnalyzeException, ContainerException, PersistenceException {
+        cs.add(c);
+        c.execute(args);
     }
 }

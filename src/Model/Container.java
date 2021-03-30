@@ -1,11 +1,7 @@
 package Model;
 
-import java.util.Comparator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 import java.util.function.Predicate;
-import java.util.spi.LocaleNameProvider;
 
 public class Container {
 
@@ -31,7 +27,7 @@ public class Container {
         return instance;
     }
 
-    public void analyze(List<String> args) {
+    public void analyze(List<String> args) throws AnalyzeException {
         AnalyzeStrategy astrat = new AnalyzeConcrete(uSL, aL);
         if (!checkDigit(args.get(0))) {
             if (args.get(0).equals("-") && args.get(1).equals("all")) {
@@ -192,7 +188,7 @@ public class Container {
     public void addElement(String name) {
         String res = "";
         if(name.equals(" ") || name.length() == 0){
-            //throw new InputMismatchException();
+            throw new InputMismatchException();
         }
         for(int idx = 0; idx < aL.size(); idx++){
             if((aL.get(idx).getName().equals(name))){
@@ -204,5 +200,8 @@ public class Container {
         aL.add(new Actor(name));
         res = "Der Akteur "+ name +" wurde im System registriert!";
         System.out.println(res);
+    }
+    public void undo(List<String> args){
+
     }
 }

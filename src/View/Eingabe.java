@@ -1,13 +1,16 @@
 package View;
 
 import Controller.*;
+import Model.AnalyzeException;
+import Model.ContainerException;
 import Model.Invoker;
+import Model.PersistenceException;
 
 
 import java.util.*;
 
 public class Eingabe {
-    public void parseInput() {
+    public void parseInput() throws AnalyzeException, PersistenceException, ContainerException {
         String strInput  = null;
         String[] strSplit  = null;
         HashMap<String, Command > commandHashMap = new HashMap<String, Command>();
